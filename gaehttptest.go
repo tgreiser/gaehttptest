@@ -66,10 +66,10 @@ func do(c appengine.Context, method, urlStr string, bodyType string, body io.Rea
 	if bodyType != "" {
 		r.Header.Set("Content-Type", bodyType)
 	}
-	return RoundTrip(c, r)
+	return Do(c, r)
 }
 
-func RoundTrip(c appengine.Context, r *http.Request) (*responseWriter, error) {
+func Do(c appengine.Context, r *http.Request) (*responseWriter, error) {
 	r.Header.Set("X-AppEngine-Inbound-AppId", "dev~"+appengine.AppID(c))
 	w := newResponseWriter()
 	http.DefaultServeMux.ServeHTTP(w, r)
